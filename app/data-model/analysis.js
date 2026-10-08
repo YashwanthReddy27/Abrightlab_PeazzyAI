@@ -171,7 +171,7 @@
   $("custTable").onclick = (e) => { const r = e.target.closest("[data-cust]"); if (r) { setFilter({ ...clear, status: "all", cust: r.dataset.cust }); show("locations"); } };
   $("cities").onclick = (e) => { const b = e.target.closest("[data-metro]"); if (b) { setFilter({ ...clear, metro: b.dataset.metro }); show("locations"); } };
   document.querySelector("main").addEventListener("click", (e) => { const r = e.target.closest("tr[data-id]"); if (r) openDrawer(+r.dataset.id); });
-  $("drawer").onclick = (e) => e.target.id === "close" && $("drawer").classList.remove("open");
+  $("drawer").onclick = (e) => { if (e.target.id === "close") $("drawer").classList.remove("open"); };
   document.addEventListener("keydown", (e) => e.key === "Escape" && $("drawer").classList.remove("open"));
 
   const q = new URLSearchParams(location.search);
