@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peazyyy AI data model</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<main>
+  <section id="view-overview">
+    <h1>Where we lose money, and why</h1>
+    <p class="sub">Every location's price and cost side by side, with the gap explained in dollars.</p>
+    <div class="grid tiles" id="tiles"></div>
+    <div class="grid two">
+      <div class="card">
+        <h2>The six reasons</h2>
+        <p class="sub">Dollars lost each month on loss-making locations, by reason. Click one to see its locations.</p>
+        <div class="bars" id="bars"></div>
+      </div>
+      <div class="card">
+        <h2>Where it happens</h2>
+        <p class="sub">Dollars lost each month in the eight worst cities. Click one to see its locations.</p>
+        <div class="bars" id="cities"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-locations" hidden>
+    <h1>Locations</h1>
+    <p class="sub">Click any location for its diagnosis.</p>
+    <div class="row">
+      <select id="fStatus" aria-label="Status"><option value="loss">Losing money</option><option value="risk">Losing money or thin margin</option><option value="all">All locations</option></select>
+      <select id="fCause" aria-label="Main reason"></select>
+      <input type="search" id="fText" placeholder="Search" aria-label="Search location">
+      <button class="btn" id="fReset">Reset</button>
+      <span class="count" id="locCount"></span>
+    </div>
+    <div class="card"><div class="scroll"><table id="locTable"></table></div></div>
+    <p class="center"><button class="btn" id="more">Show more</button></p>
+  </section>
+
+  <section id="view-customers" hidden>
+    <h1>Customers</h1>
+    <p class="sub">Margin by customer, lowest first. Click one to see its locations.</p>
+    <div class="card"><div class="scroll"><table id="custTable"></table></div></div>
+    <p class="center"><button class="btn" id="moreCust">Show all customers</button></p>
+  </section>
+
+  <section id="view-forecast" hidden>
+    <h1>Which sites will start losing money next</h1>
+    <p class="sub">A model we train ourselves on our own history. It looks at what is known when a site is priced and a vendor is assigned, and estimates the chance the site ends up losing money. Each month it is retrained on new data and only replaces the old version if it is at least as accurate.</p>
+    <div class="grid three" id="mlTiles"></div>
+    <div class="grid two">
+      <div class="card"><h2>What the model pays most attention to</h2><p class="sub">How much accuracy drops when each fact is hidden from it.</p><div class="bars" id="mlBars"></div></div>
+      <div class="card"><h2>Healthy today, highest risk</h2><p class="sub">Sites still making money, ranked by the model.</p><div class="scroll"><table id="riskTable"></table></div></div>
+    </div>
+  </section>
+
+  <section id="view-how" hidden>
+    <div class="prose">
+      <h1>How the analysis works</h1>
+      <p class="sub">No formulas needed. This is the whole idea in five steps, then one real example.</p>
+      <div class="steps">
+        <div><div><h3>Put two numbers side by side</h3><p>What the customer pays us for a location, and what we pay the vendor to clean it. Today these live in different systems and nobody compares them site by site.</p></div></div>
+        <div><div><h3>Work out a fair cost</h3><p>From the size of the site, how often it is cleaned, and what vendors in that city normally charge per hour, we estimate what the job should cost. Add our target margin and that gives a fair price.</p></div></div>
+        <div><div><h3>Explain the difference</h3><p>If a site makes less than it should, the shortfall is split across six reasons: the price is too low, the vendor charges too much, extra visits are not billed, the vendor travels too far, crews do work beyond the contract, or poor quality leads to refunds. The six always add up to the full shortfall.</p></div></div>
+        <div><div><h3>Compare with sites that make money</h3><p>Each site is set against profitable sites of the same kind, so we can see what the good ones do differently.</p></div></div>
+        <div><div><h3>Look ahead and recommend</h3><p>A forecast flags sites about to tip into loss. Then the Peazyyy AI app turns all of this into ranked fixes and automated actions.</p></div></div>
+      </div>
+
+      <h2>One location, worked through</h2>
+      <p class="sub" id="exampleIntro"></p>
+      <div class="card receipt" id="receipt"></div>
+
+      <h2 style="margin-top:28px">What information it needs</h2>
+    </div>
+    <div class="grid three source" style="margin-top:12px">
+      <div class="card"><h3>From Peazy</h3><ul><li>Where each location is</li><li>Which vendor cleans it</li><li>Visits scheduled each week</li><li>Check-in and check-out times</li><li>Inspection scores and issues</li></ul></div>
+      <div class="card"><h3>From finance</h3><ul><li>What each customer is billed</li><li>Refunds given to customers</li><li>What each vendor is paid, including travel and extras</li></ul></div>
+      <div class="card"><h3>From contracts</h3><ul><li>How each customer is priced</li><li>When the contract started</li><li>Whether the price rises each year</li><li>Size of each site and what the cleaning covers</li></ul></div>
+    </div>
+    <div class="prose">
+      <h2 style="margin-top:28px">What it cannot tell you yet</h2>
+      <ul>
+        <li>The data here is made up to look like a real portfolio, so the figures show the method working, not the real picture.</li>
+        <li>"What vendors normally charge" is taken from what we pay today. If we overpay everyone in a city, it will look normal until outside wage data is added.</li>
+        <li>Route savings assume the recommended vendor can take on the extra sites.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<aside id="drawer" aria-label="Location diagnosis"></aside>
+<script src="../data.js"></script>
+<script src="../risk.js"></script>
+<script src="../common.js"></script>
+<script src="analysis.js"></script>
+</body>
+</html>

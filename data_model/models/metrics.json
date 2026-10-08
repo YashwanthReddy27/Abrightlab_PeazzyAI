@@ -1,0 +1,59 @@
+{
+  "trained": "2026-10-07",
+  "rows": 5000,
+  "loss_rate": 0.2134,
+  "model": {
+    "auc": 0.8717,
+    "precision": 0.8322,
+    "recall": 0.5587,
+    "brier": 0.0927
+  },
+  "baseline": {
+    "auc": 0.8648,
+    "precision": 0.7812,
+    "recall": 0.5869,
+    "brier": 0.0971
+  },
+  "importance": [
+    [
+      "Vendor rate vs. local market",
+      0.1013
+    ],
+    [
+      "Miles from vendor base",
+      0.1009
+    ],
+    [
+      "Price per hour of work",
+      0.0855
+    ],
+    [
+      "Local wage level",
+      0.0629
+    ],
+    [
+      "Vendor's average inspection score",
+      0.0152
+    ],
+    [
+      "Hours per visit",
+      0.0056
+    ],
+    [
+      "Contract age in years",
+      0.0023
+    ],
+    [
+      "Visits per week",
+      0.0014
+    ],
+    [
+      "Nearby sites on the same vendor",
+      0.001
+    ],
+    [
+      "Facility type: Auto dealership",
+      0.0008
+    ]
+  ]
+}

@@ -1,0 +1,23 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Rebuilt by data_model/build.py and data_model/train.py
+*.db
+data_model/models/*.joblib
+
+# Editor and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local tooling
+.claude/
+.codegraph/
+.vercel/
+*.log
+
+WALKTHROUGH.md

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peazyyy AI</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <section id="view-recs">
+    <h1>What to fix first</h1>
+    <p class="sub">Peazyyy AI reads the analysis and ranks the fixes worth the most for the least effort. You approve. It carries them out.</p>
+    <div class="flow" id="flow"></div>
+    <div class="row"><div class="chips" id="groupChips" style="margin:0"></div><button class="btn" data-view="results" style="margin-left:auto">See the results →</button></div>
+    <div class="card" id="plays"></div>
+    <p class="center"><button class="btn" id="morePlays">Show more</button></p>
+  </section>
+
+  <section id="view-queue" hidden>
+    <h1>Automation queue</h1>
+    <p class="sub">Things the system caught that nobody had to notice, grouped by what triggered them. Approve a whole group, or review the sites one by one.</p>
+    <p class="fine" id="queueSummary"></p>
+    <div id="queue"></div>
+  </section>
+
+  <section id="view-optimizer" hidden>
+    <h1>Routes and vendors</h1>
+    <p class="sub">How sites should be grouped, and which vendors should get the work.</p>
+    <div class="chips" id="optChips"><button class="chip on" data-opt="routes">Routes</button><button class="chip" data-opt="vendors">Vendor scorecards</button></div>
+    <div class="card">
+      <p class="sub" id="optSub"></p>
+      <div class="scroll"><table id="optTable"></table></div>
+      <p class="center"><button class="btn" id="moreOpt"></button></p>
+    </div>
+  </section>
+
+  <section id="view-results" hidden>
+    <h1>Is it working?</h1>
+    <p class="sub">The numbers leadership sets, measured today and with the plan you have approved. Change a target and the status updates.</p>
+    <div class="row">
+      <label for="cost">First-year cost to build and run ($)</label><input type="number" id="cost" min="0" step="10000" style="width:120px">
+      <label for="tGm">Target margin (%)</label><input type="number" id="tGm" min="0" max="60" style="width:70px">
+      <label for="tPay">Target payback (months)</label><input type="number" id="tPay" min="1" max="60" style="width:70px">
+    </div>
+    <div class="card" style="margin-bottom:16px"><div class="scroll"><table id="metrics"></table></div></div>
+    <div class="card">
+      <h2>Why we lose money, and how much the plan addresses</h2>
+      <p class="sub">Each reason across every location, not only the loss-making ones. The filled part is what approved fixes are expected to recover.</p>
+      <div class="bars" id="reasons"></div>
+    </div>
+  </section>
+</main>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
