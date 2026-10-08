@@ -95,6 +95,17 @@
     return `This site ${verdict}. The customer pays ${usd(l.price - l.credits)} and we pay the vendor ${usd(l.cost)}. A job like this should cost about ${usd(l.should)}.${ranked.length ? ` The main reasons for the shortfall: ${top}.` : ""}`;
   }
 
+  const FLAG_FOR = { price: ["tip_forecast"], rate: ["short_visit"], freq: ["dup_bill", "dup_vendor", "dup_schedule", "over_schedule"], travel: ["remote"], scope: ["over_scope"], quality: ["low_quality"] };
+  function actLink(l) {
+    const mine = flagsOf[l.id] || new Set(), want = (FLAG_FOR[l.primary] || []).find((k) => mine.has(k));
+    const play = D.plays.find((p) =>
+      (l.primary === "price" && p.cust === l.cust) || (l.primary === "travel" && p.cluster !== undefined && p.cluster === l.cluster) ||
+      (l.primary === "rate" && p.type === "rebid" && p.vendor === l.vendor) || (l.primary === "quality" && p.type === "performance" && p.vendor === l.vendor));
+    if (want) return `../index.html?item=${want}:${l.id}`;
+    if (play) return `../index.html?play=${play.id}`;
+    return mine.size ? `../index.html?item=${[...mine][0]}:${l.id}` : "../index.html?view=recs";
+  }
+
   function openDrawer(id) {
     const l = L[id], c = D.customers[l.cust], v = D.vendors[l.vendor], m = D.metros[l.metro], b = l.bench;
     const max = Math.max(...l.comp.map(Math.abs), 1);
@@ -112,7 +123,7 @@
       <div class="fine">${D.types[c.type]} · ${l.sqft.toLocaleString()} sq ft · ${m.name} · ${statusChip(l.status)}</div>
       <h4>What is happening</h4>
       <p style="margin:0;color:var(--ink-2)">${brief(l)}</p>
-      ${f ? `<h4>What would fix it</h4><div class="note-box"><b>${f[0]}</b>${esc(f[1])}<div style="margin-top:8px"><a href="../index.html">Open Peazyyy AI to act on it →</a></div></div>` : ""}
+      ${f ? `<h4>What would fix it</h4><div class="note-box"><b>${f[0]}</b>${esc(f[1])}<div style="margin-top:10px"><a class="btn primary" href="${actLink(l)}">Act on this in the app →</a></div></div>` : ""}
       <h4>Where the money goes</h4>
       <div class="fine" style="margin-bottom:6px">Should earn ${usd(l.targetPrice - l.should)}, earns ${usd(l.margin)}. Red takes money away, blue adds it.</div>
       ${bars}

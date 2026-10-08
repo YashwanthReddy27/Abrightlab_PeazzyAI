@@ -105,10 +105,10 @@ window.PZ = (() => {
     document.body.insertAdjacentHTML("afterbegin", `
       <div class="top">
         <div class="top-in">
-          <a class="brand" href="${up}index.html">Peazyyy <span>AI</span></a>
+          <a class="brand" href="${up}data-model/index.html">Peazyyy <span>AI</span></a>
           <nav class="areas" aria-label="Area">
             <a href="${up}data-model/index.html" class="${area === "model" ? "on" : ""}">Data model · analysis</a>
-            <a href="${up}index.html" class="${area === "app" ? "on" : ""}">App · automation and AI</a>
+            <a href="${up}index.html?view=recs" class="${area === "app" ? "on" : ""}">App · automation and AI</a>
           </nav>
           <span class="badge">Prototype on ${L.length.toLocaleString()} synthetic locations</span>
         </div>

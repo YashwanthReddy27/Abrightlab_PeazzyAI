@@ -96,6 +96,7 @@ button.bar-row:hover { background: var(--wash); }
 /* plays */
 .play { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; padding: 16px 0; border-bottom: 1px solid var(--grid); }
 .play:last-child { border-bottom: 0; }
+.play.focus { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; border-bottom-color: transparent; }
 .play .tag { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
 .play h3 { margin: 2px 0 4px; font-size: 15px; }
 .play p { margin: 0; color: var(--ink-2); max-width: 640px; }

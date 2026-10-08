@@ -31,7 +31,7 @@
       const [title, why] = playText(p), on = state.approved.has(p.id);
       const link = p.flag ? `<button class="btn" data-queue="${p.flag}">Open in queue</button>`
         : `<a class="btn" href="data-model/index.html?${p.cluster !== undefined ? "cluster=" + p.cluster : p.cust !== undefined ? "cust=" + p.cust : "vendor=" + p.vendor}">See the sites</a>`;
-      return `<div class="play">
+      return `<div class="play ${state.focus === p.id ? "focus" : ""}">
         <div><div class="tag">${playGroup(p)}</div><h3>${esc(title)}</h3><p>${esc(why)}</p>
           <div class="facts">${plural(p.sites, "site")} · ${usd(p.gap)} a month at stake · expect to recover ${pct(p.capture, 0)} · ${EFFORT[p.effort]}</div></div>
         <div class="side"><div class="value">${usd(p.value)} <small>a month</small></div>
@@ -155,6 +155,15 @@
   };
 
   $("cost").value = state.cost; $("tGm").value = state.tGm; $("tPay").value = state.tPay;
+  const q = new URLSearchParams(location.search);
+  if (q.has("item")) {
+    const key = q.get("item"), type = key.split(":")[0];
+    const order = D.flags.filter((f) => f.type === type).sort((a, b) => Math.abs(b.amt) - Math.abs(a.amt));
+    state.flag = type; state.open = key; state.queueLimit = Math.max(5, order.findIndex((f) => flagKey(f) === key) + 1);
+  }
+  if (q.has("play")) { state.focus = +q.get("play"); state.playLimit = Math.max(5, state.focus + 1); }
   renderQueue(); renderOptimizer();
-  show(new URLSearchParams(location.search).get("view") || "recs");
+  show(q.has("item") ? "queue" : q.get("view") || "recs");
+  const target = document.querySelector(".q-item.open, .play.focus");
+  if (target) target.scrollIntoView({ block: "center" });
 })();
